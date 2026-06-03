@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.LoginController">
+
+    <top>
+        <MenuBar>
+            <Menu text="📁 ملف">
+                <MenuItem text="🚪 خروج" onAction="#handleExit" accelerator="Ctrl+Q"/>
+            </Menu>
+            <Menu text="🎨 تنسيق">
+                <MenuItem text="حجم الخط" onAction="#handleFontSize"/>
+                <MenuItem text="نوع الخط" onAction="#handleFontFamily"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="الوضع الفاتح" onAction="#handleLightTheme"/>
+                <MenuItem text="الوضع الداكن" onAction="#handleDarkTheme"/>
+            </Menu>
+            <Menu text="❓ مساعدة">
+                <MenuItem text="ℹ️ عن النظام" onAction="#handleAbout"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="25"
+              style="-fx-background-color: linear-gradient(to bottom right, #1e1e2e, #313244);">
+            <padding>
+                <Insets top="50" right="100" bottom="50" left="100"/>
+            </padding>
+
+            <VBox alignment="CENTER" spacing="10">
+                <Text text="🇵🇸 GHADS" textAlignment="CENTER" fill="#89b4fa">
+                    <font>
+                        <Font name="System Bold" size="36"/>
+                    </font>
+                </Text>
+                <Text text="نظام توزيع المساعدات الإنسانية في غزة"
+                      textAlignment="CENTER" fill="#cdd6f4">
+                    <font>
+                        <Font size="16"/>
+                    </font>
+                </Text>
+            </VBox>
+
+            <VBox spacing="15" maxWidth="350"
+                  style="-fx-background-color: #313244; -fx-background-radius: 15; -fx-padding: 30;">
+                <Text text="تسجيل الدخول" fill="#89b4fa">
+                    <font>
+                        <Font name="System Bold" size="20"/>
+                    </font>
+                </Text>
+                
+                  <Text text=" Admin or Coordinator"
+                      fill="#a6adc8" textAlignment="CENTER">
+                    <font>
+                        <Font size="12"/>
+                    </font>
+                </Text>
+
+
+                <TextField fx:id="usernameField" promptText="اسم المستخدم"
+                           style="-fx-pref-height: 40; -fx-font-size: 14;"/>
+
+                <PasswordField fx:id="passwordField" promptText="كلمة المرور"
+                               style="-fx-pref-height: 40; -fx-font-size: 14;"/>
+
+                <Button text="تسجيل الدخول" onAction="#handleLogin"
+                        style="-fx-pref-height: 40; -fx-font-size: 16;
+                               -fx-background-color: #89b4fa; -fx-text-fill: #1e1e2e;"/>
+
+                <Label fx:id="errorLabel" text=""
+                       style="-fx-text-fill: #f38ba8; -fx-font-size: 12;"/>
+               
+                <Text text="© 2026 GHADS "
+                      fill="#a6adc8" textAlignment="CENTER">
+                    <font>
+                        <Font size="10"/>
+                    </font>
+                </Text>
+            </VBox>
+        </VBox>
+    </center>
+
+</BorderPane>

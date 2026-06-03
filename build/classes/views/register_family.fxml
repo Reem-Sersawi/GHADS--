@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox spacing="15"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.RegisterFamilyController"
+      style="-fx-background-color: #313244; -fx-background-radius: 15;">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Text text="تسجيل عائلة جديدة" fill="#89b4fa">
+        <font>
+            <Font name="System Bold" size="18"/>
+        </font>
+    </Text>
+
+    <GridPane hgap="15" vgap="12">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="30"/>
+            <ColumnConstraints percentWidth="70"/>
+        </columnConstraints>
+
+        <Label text="اسم العائلة:" textFill="#cdd6f4"
+               GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="householdNameField" promptText="مثال: عائلة أبو أحمد"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="رقم الهاتف:" textFill="#cdd6f4"
+               GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="phoneField" promptText="05xxxxxxxx"
+                   GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="الموقع:" textFill="#cdd6f4"
+               GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="locationField" promptText="المنطقة أو المخيم"
+                   GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="عدد الأفراد:" textFill="#cdd6f4"
+               GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="familySizeField" promptText="1-20"
+                   GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="رقم الهوية:" textFill="#cdd6f4"
+               GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="nationalIdField" promptText="رقم الهوية الوطنية"
+                   GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="مستوى الهشاشة:" textFill="#cdd6f4"
+               GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="vulnerabilityCombo" promptText="اختر المستوى"
+                  GridPane.rowIndex="5" GridPane.columnIndex="1"
+                  prefWidth="200"/>
+
+        <Label text="تاريخ التسجيل:" textFill="#cdd6f4"
+               GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="regDatePicker"
+                    GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+        <Label text="ملاحظات:" textFill="#cdd6f4"
+               GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+        <TextArea fx:id="notesField" promptText="ملاحظات إضافية (اختياري)"
+                  GridPane.rowIndex="7" GridPane.columnIndex="1"
+                  prefHeight="70"/>
+    </GridPane>
+
+    <HBox spacing="15" alignment="CENTER">
+        <Button fx:id="saveBtn" text="حفظ" onAction="#handleSave"
+                style="-fx-background-color: #a6e3a1; -fx-text-fill: #1e1e2e; -fx-pref-width: 100;"/>
+        <Button fx:id="resetBtn" text="إعادة تعيين" onAction="#handleReset"
+                style="-fx-pref-width: 120;"/>
+        <Button text="إلغاء" onAction="#handleCancel"
+                style="-fx-pref-width: 100;"/>
+    </HBox>
+</VBox>

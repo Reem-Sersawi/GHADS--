@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.AdminDashboardController">
+
+    <top>
+        <MenuBar>
+            <Menu text="📁 ملف">
+                <MenuItem text="🔑 تغيير كلمة المرور" onAction="#handleChangePassword" accelerator="Ctrl+P"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="🚪 تسجيل الخروج" onAction="#handleLogout" accelerator="Ctrl+L"/>
+                <MenuItem text="❌ خروج" onAction="#handleExit" accelerator="Ctrl+Q"/>
+            </Menu>
+            <Menu text="🎨 تنسيق">
+                <MenuItem text="حجم الخط" onAction="#handleFontSize"/>
+                <MenuItem text="نوع الخط" onAction="#handleFontFamily"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="الوضع الفاتح" onAction="#handleLightTheme"/>
+                <MenuItem text="الوضع الداكن" onAction="#handleDarkTheme"/>
+            </Menu>
+            <Menu text="❓ مساعدة">
+                <MenuItem text="ℹ️ عن النظام" onAction="#handleAbout"/>
+                <MenuItem text="📖 التعليمات" onAction="#handleHelp"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <center>
+        <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
+
+            <Tab text="📊 لوحة التحكم">
+                <ScrollPane fitToWidth="true">
+                    <VBox spacing="20" style="-fx-padding: 20;">
+                        <HBox spacing="20" alignment="CENTER">
+
+                            <VBox styleClass="dashboard-card" alignment="CENTER" spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="🏢" style="-fx-font-size: 32;"/>
+                                <Label text="المنظمات" styleClass="dashboard-label"/>
+                                <Label fx:id="totalOrgsLabel" text="0" styleClass="dashboard-number"/>
+                            </VBox>
+
+                            <VBox styleClass="dashboard-card" alignment="CENTER" spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="👥" style="-fx-font-size: 32;"/>
+                                <Label text="المنسقين" styleClass="dashboard-label"/>
+                                <Label fx:id="totalUsersLabel" text="0" styleClass="dashboard-number"/>
+                            </VBox>
+
+                            <VBox styleClass="dashboard-card" alignment="CENTER" spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="👨‍👩‍👧‍👦" style="-fx-font-size: 32;"/>
+                                <Label text="العائلات المسجلة" styleClass="dashboard-label"/>
+                                <Label fx:id="totalFamiliesLabel" text="0" styleClass="dashboard-number"/>
+                            </VBox>
+
+                            <VBox styleClass="dashboard-card" alignment="CENTER" spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="✅" style="-fx-font-size: 32;"/>
+                                <Label text="العائلات المخدومة" styleClass="dashboard-label"/>
+                                <Label fx:id="totalServedLabel" text="0" styleClass="dashboard-number"
+                                       style="-fx-text-fill: #27ae60;"/>
+                            </VBox>
+
+                            <VBox styleClass="dashboard-card" alignment="CENTER" spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="⚠️" style="-fx-font-size: 32;"/>
+                                <Label text="العائلات غير المخدومة" styleClass="dashboard-label"/>
+                                <Label fx:id="totalUnservedLabel" text="0" styleClass="dashboard-number"
+                                       style="-fx-text-fill: #e74c3c;"/>
+                            </VBox>
+
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <Tab text="🏢 إدارة المنظمات">
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+
+                    <VBox spacing="10" style="-fx-padding: 15;">
+                        <Label text="قائمة المنظمات" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        <TableView fx:id="orgTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="orgIdCol" text="الرقم" prefWidth="60"/>
+                                <TableColumn fx:id="orgNameCol" text="الاسم" prefWidth="200"/>
+                                <TableColumn fx:id="orgTypeCol" text="النوع" prefWidth="120"/>
+                                <TableColumn fx:id="orgContactCol" text="معلومات الاتصال" prefWidth="200"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <VBox spacing="15" style="-fx-padding: 15;">
+                        <Label text="بيانات المنظمة" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        <GridPane hgap="15" vgap="12">
+                            <Label text="الاسم:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="orgNameField" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                                       prefWidth="250"/>
+
+                            <Label text="النوع:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="orgTypeCombo" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                                      prefWidth="250"/>
+
+                            <Label text="معلومات الاتصال:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="orgContactField" GridPane.rowIndex="2" GridPane.columnIndex="1"
+                                       prefWidth="250"/>
+                        </GridPane>
+
+                        <HBox spacing="15" alignment="CENTER">
+                            <Button fx:id="orgSaveBtn" text="💾 حفظ" onAction="#handleOrgSave"
+                                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-pref-width: 100;"/>
+                            <Button fx:id="orgResetBtn" text="🔄 إعادة تعيين" onAction="#resetOrgForm"
+                                    style="-fx-pref-width: 120;"/>
+                            <Button fx:id="orgDeleteBtn" text="🗑️ حذف" onAction="#handleOrgDelete"
+                                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 100;"
+                                    disable="true"/>
+                        </HBox>
+                    </VBox>
+
+                </SplitPane>
+            </Tab>
+
+            <Tab text="👥 إدارة المستخدمين">
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+
+                    <VBox spacing="10" style="-fx-padding: 15;">
+                        <Label text="قائمة المستخدمين" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        <TableView fx:id="userTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="userIdCol" text="الرقم" prefWidth="50"/>
+                                <TableColumn fx:id="userUsernameCol" text="اسم المستخدم" prefWidth="120"/>
+                                <TableColumn fx:id="userFullNameCol" text="الاسم الكامل" prefWidth="150"/>
+                                <TableColumn fx:id="userEmailCol" text="البريد الإلكتروني" prefWidth="180"/>
+                                <TableColumn fx:id="userRoleCol" text="الدور" prefWidth="80"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <VBox spacing="15" style="-fx-padding: 15;">
+                        <Label text="بيانات المستخدم" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        <ScrollPane fitToWidth="true">
+                            <GridPane hgap="15" vgap="12">
+                                <Label text="اسم المستخدم:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <TextField fx:id="usernameField" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                                           prefWidth="250"/>
+
+                                <Label text="كلمة المرور:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <PasswordField fx:id="passwordField" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                                               prefWidth="250"/>
+
+                                <Label text="الاسم الكامل:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <TextField fx:id="fullNameField" GridPane.rowIndex="2" GridPane.columnIndex="1"
+                                           prefWidth="250"/>
+
+                                <Label text="البريد الإلكتروني:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                <TextField fx:id="emailField" GridPane.rowIndex="3" GridPane.columnIndex="1"
+                                           prefWidth="250"/>
+
+                                <Label text="الدور:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                                <ComboBox fx:id="roleCombo" GridPane.rowIndex="4" GridPane.columnIndex="1"
+                                          prefWidth="250"/>
+
+                                <Label text="المنظمة:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                                <ComboBox fx:id="orgCombo" GridPane.rowIndex="5" GridPane.columnIndex="1"
+                                          prefWidth="250"/>
+
+                                <Label text="الصورة الشخصية:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                                <HBox spacing="10" GridPane.rowIndex="6" GridPane.columnIndex="1">
+                                    <Button text="📷 رفع صورة" onAction="#handleUploadUserImage"
+                                            style="-fx-background-color: #6c5ce7; -fx-text-fill: white;"/>
+                                    <Label fx:id="imageStatusLabel" text="لا توجد صورة"
+                                           style="-fx-text-fill: #a6adc8;"/>
+                                </HBox>
+                            </GridPane>
+                        </ScrollPane>
+
+                        <HBox spacing="15" alignment="CENTER">
+                            <Button fx:id="userSaveBtn" text="💾 حفظ" onAction="#handleUserSave"
+                                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-pref-width: 100;"/>
+                            <Button fx:id="userResetBtn" text="🔄 إعادة تعيين" onAction="#resetUserForm"
+                                    style="-fx-pref-width: 120;"/>
+                            <Button fx:id="userDeleteBtn" text="🗑️ حذف" onAction="#handleUserDelete"
+                                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 100;"
+                                    disable="true"/>
+                        </HBox>
+                    </VBox>
+
+                </SplitPane>
+            </Tab>
+
+            <Tab text="👨‍👩‍👧‍👦 إدارة العائلات">
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+
+                    <VBox spacing="10" style="-fx-padding: 15;">
+                        <Label text="قائمة العائلات" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        <TableView fx:id="familyTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="familyIdCol" text="الرقم" prefWidth="50"/>
+                                <TableColumn fx:id="householdNameCol" text="اسم العائلة" prefWidth="150"/>
+                                <TableColumn fx:id="familyPhoneCol" text="الهاتف" prefWidth="100"/>
+                                <TableColumn fx:id="familyLocationCol" text="الموقع" prefWidth="120"/>
+                                <TableColumn fx:id="familySizeCol" text="عدد الأفراد" prefWidth="80"/>
+                                <TableColumn fx:id="familyNationalIdCol" text="رقم الهوية" prefWidth="130"/>
+                                <TableColumn fx:id="vulnerabilityCol" text="مستوى الهشاشة" prefWidth="100"/>
+                                <TableColumn fx:id="regDateCol" text="تاريخ التسجيل" prefWidth="100"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <VBox spacing="15" style="-fx-padding: 15;">
+                        <Label text="بيانات العائلة" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        <ScrollPane fitToWidth="true">
+                            <GridPane hgap="15" vgap="12">
+                                <Label text="اسم العائلة:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <TextField fx:id="householdNameField" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                                           prefWidth="250"/>
+
+                                <Label text="رقم الهاتف:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <TextField fx:id="phoneField" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                                           prefWidth="250"/>
+
+                                <Label text="الموقع:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <TextField fx:id="locationField" GridPane.rowIndex="2" GridPane.columnIndex="1"
+                                           prefWidth="250"/>
+
+                                <Label text="عدد الأفراد:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                <TextField fx:id="familySizeField" GridPane.rowIndex="3" GridPane.columnIndex="1"
+                                           prefWidth="250"/>
+
+                                <Label text="رقم الهوية:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                                <TextField fx:id="nationalIdField" GridPane.rowIndex="4" GridPane.columnIndex="1"
+                                           prefWidth="250"/>
+
+                                <Label text="مستوى الهشاشة:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                                <ComboBox fx:id="vulnerabilityCombo" GridPane.rowIndex="5" GridPane.columnIndex="1"
+                                          prefWidth="250"/>
+
+                                <Label text="تاريخ التسجيل:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                                <DatePicker fx:id="regDatePicker" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                            </GridPane>
+                        </ScrollPane>
+
+                        <HBox spacing="15" alignment="CENTER">
+                            <Button fx:id="familySaveBtn" text="💾 حفظ" onAction="#handleFamilySave"
+                                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-pref-width: 100;"/>
+                            <Button fx:id="familyResetBtn" text="🔄 إعادة تعيين" onAction="#resetFamilyForm"
+                                    style="-fx-pref-width: 120;"/>
+                            <Button fx:id="familyDeleteBtn" text="🗑️ حذف" onAction="#handleFamilyDelete"
+                                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 100;"
+                                    disable="true"/>
+                        </HBox>
+                    </VBox>
+
+                </SplitPane>
+            </Tab>
+
+          
+            <Tab text="📋 سجل التوزيعات">
+                <VBox spacing="10" style="-fx-padding: 15;">
+                    <Label text="سجل توزيع المساعدات" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+
+                 
+                    <HBox spacing="10" style="-fx-padding: 0 0 10 0;">
+                        <ComboBox fx:id="searchOrgCombo" promptText="🔍 بحث حسب المنظمة" prefWidth="200"/>
+                        <Button fx:id="searchOrgBtn" text="بحث" onAction="#handleSearchDistributionsByOrg"
+                                style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                        <TextField fx:id="searchDistField" promptText="🔍 بحث باسم العائلة" prefWidth="200"/>
+                        <Button fx:id="searchFamilyBtn" text="بحث" onAction="#handleSearchDistributionsByFamily"
+                                style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                        <Button fx:id="resetDistSearchBtn" text="🔄 عرض الكل" onAction="#resetDistributionSearch"
+                                style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                    </HBox>
+
+                    <TableView fx:id="distTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="distIdCol" text="الرقم" prefWidth="60"/>
+                            <TableColumn fx:id="distFamilyCol" text="اسم العائلة" prefWidth="200"/>
+                            <TableColumn fx:id="distOrgCol" text="المنظمة" prefWidth="200"/>
+                            <TableColumn fx:id="distDateCol" text="تاريخ التوزيع" prefWidth="120"/>
+                            <TableColumn fx:id="distTypeCol" text="نوع المساعدة" prefWidth="120"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+
+        </TabPane>
+    </center>
+
+</BorderPane>
