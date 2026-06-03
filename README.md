@@ -1,5 +1,8 @@
+
 ```markdown
 <div align="center">
+
+<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/logo.png" alt="GHADS Logo" width="120"/>
 
 # 🕊️ GHADS
 ### Gaza Humanitarian Aid Distribution System
@@ -22,19 +25,20 @@
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [The Problem](#the-problem)
-- [The Solution](#the-solution)
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Architecture](#architecture)
-- [Database Design](#database-design)
-- [Technologies Used](#technologies-used)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Default Credentials](#default-credentials)
-- [Design Patterns](#design-patterns)
-- [Bonus Features](#bonus-features)
+- [Overview](#-overview)
+- [The Problem](#-the-problem)
+- [The Solution](#-the-solution)
+- [Features](#-features)
+- [Screenshots](#-screenshots)
+- [Architecture](#-architecture)
+- [Database Design](#-database-design)
+- [Technologies Used](#-technologies-used)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Default Credentials](#-default-credentials)
+- [Design Patterns](#-design-patterns)
+- [Bonus Features](#-bonus-features)
+- [Developer](#-developer)
 
 ---
 
@@ -127,29 +131,53 @@ Before saving any aid record:
 
 ### Login Screen
 
-![Login](https://via.placeholder.com/800x450/1a1f2e/3b82f6?text=Login+Screen)
+<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Login.png" width="800"/>
 
 ### Admin Dashboard
 
 | Light Theme | Dark Theme |
 |:-----------:|:----------:|
-| ![Light](https://via.placeholder.com/400x250/f8fafc/1e293b?text=Light+Theme) | ![Dark](https://via.placeholder.com/400x250/1a1f2e/3b82f6?text=Dark+Theme) |
+| <img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Admin-Dashboard.png" width="380"/> | <img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Admin-Dashboard-dark.png" width="380"/> |
 
 ### Organizations Management
 
-![Organizations](https://via.placeholder.com/800x400/1a1f2e/3b82f6?text=Organizations+Management)
+<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Admin-Org.png" width="800"/>
 
 ### Users Management
 
-![Users](https://via.placeholder.com/800x400/1a1f2e/3b82f6?text=Users+Management)
+<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Admin-user.png" width="800"/>
 
 ### Families Management
 
-![Families](https://via.placeholder.com/800x400/1a1f2e/3b82f6?text=Families+Management)
+<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Admin-family.png" width="800"/>
+
+### Aid Records (Admin)
+
+<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/admin-Aid.png" width="800"/>
+
+### Coordinator Dashboard
+
+<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Coor-Dashboard.png" width="800"/>
 
 ### Aid Distribution (Coordinator)
 
-![Aid Distribution](https://via.placeholder.com/800x400/1a1f2e/3b82f6?text=Aid+Distribution)
+<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Coor-Aid.png" width="800"/>
+
+### Family Registration (Coordinator)
+
+<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Coor-Family.png" width="800"/>
+
+### Coordinator Profile
+
+<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Coor-profile.png" width="800"/>
+
+### Change Password
+
+<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Coor-ChangePass.png" width="800"/>
+
+### About Dialog
+
+<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/about.png" width="400"/>
 
 ---
 
@@ -205,7 +233,7 @@ Organization ──────< User
 
 ### Tables
 
-#### Organization
+#### `Organization`
 
 | Column | Type | Description |
 |--------|------|-------------|
@@ -214,7 +242,7 @@ Organization ──────< User
 | type | VARCHAR | NGO / UN / Local / International |
 | contact_info | VARCHAR | Phone or email |
 
-#### User
+#### `User`
 
 | Column | Type | Description |
 |--------|------|-------------|
@@ -225,10 +253,10 @@ Organization ──────< User
 | email | VARCHAR UNIQUE | Contact email |
 | role | VARCHAR | ADMIN or COORDINATOR |
 | org_id | INT FK | → Organization |
-| profile_image | BLOB | Bonus: user photo |
-| profile_image_type | VARCHAR | Bonus: image format |
+| profile_image | BLOB | *Bonus: user photo* |
+| profile_image_type | VARCHAR | *Bonus: image format* |
 
-#### Family
+#### `Family`
 
 | Column | Type | Description |
 |--------|------|-------------|
@@ -242,7 +270,7 @@ Organization ──────< User
 | registration_date | DATE | When registered |
 | last_aid_date | DATE | Updated after each distribution |
 
-#### AidDistribution
+#### `AidDistribution`
 
 | Column | Type | Description |
 |--------|------|-------------|
@@ -251,7 +279,7 @@ Organization ──────< User
 | org_id | INT FK | → Organization |
 | distributed_by | INT FK | → User |
 | distribution_date | DATE | When distributed |
-| aid_type | VARCHAR | Bonus: food/water/medicine/tent/blankets/clothes/cash |
+| aid_type | VARCHAR | *Bonus: food/water/medicine/tent/blankets/clothes/cash* |
 
 ---
 
@@ -301,6 +329,7 @@ GHADS/
 │   └── ghads_db.sql
 │
 ├── 📁 images/
+│   └── (uploaded profile photos stored here)
 │
 ├── 📁 model/
 │   ├── AidDistribution.java
@@ -309,6 +338,7 @@ GHADS/
 │   └── User.java
 │
 ├── 📁 screenshots/
+│   ├── logo.png
 │   ├── Login.png
 │   ├── Admin-Dashboard.png
 │   ├── Admin-Dashboard-dark.png
@@ -401,7 +431,9 @@ Open the project in **NetBeans** → Right-click → **Run**
 
 ## 🎨 Design Patterns
 
-### 1. Singleton — DatabaseConnection
+### 1. Singleton — `DatabaseConnection`
+
+The Singleton pattern ensures only **one database connection** exists throughout the entire application lifetime.
 
 ```java
 public class DatabaseConnection {
@@ -416,24 +448,32 @@ public class DatabaseConnection {
 }
 ```
 
+**Singleton is also used in:**
+- `SessionManager` → Manages the current user session
+- `ThemeManager` → Centralized theme management (Dark/Light)
+
 ### 2. MVC (Model-View-Controller)
 
-| Layer | Files |
-|-------|-------|
-| Model | `model/` (User, Family, Organization, AidDistribution) |
-| View | `views/` (FXML files) |
-| Controller | `controller/` (AdminDashboard, Login, CoordinatorDashboard) |
+| Layer | Responsibility | Files |
+|-------|----------------|-------|
+| **Model** | Data representation | `model/` (User, Family, Organization, AidDistribution) |
+| **View** | User interface | `views/` (FXML files) |
+| **Controller** | Application logic | `controller/` (AdminDashboard, Login, CoordinatorDashboard) |
 
 ### 3. DAO (Data Access Object)
 
+Each database table has its own DAO using **JDBC**:
+
 | DAO | Operations |
 |-----|------------|
-| UserDAO | CRUD + Authentication |
-| OrganizationDAO | CRUD |
-| FamilyDAO | CRUD + Vulnerability filters |
-| AidDistributionDAO | CRUD + Duplicate check |
+| `UserDAO` | CRUD + Authentication |
+| `OrganizationDAO` | CRUD |
+| `FamilyDAO` | CRUD + Vulnerability filters |
+| `AidDistributionDAO` | CRUD + Duplicate check |
 
 ### 4. Streams & Lambdas
+
+Used throughout for data filtering:
 
 ```java
 long coordinatorCount = users.stream()
@@ -445,17 +485,21 @@ long coordinatorCount = users.stream()
 
 ## 🌟 Bonus Features
 
-### Bonus 1: User Profile Photo
+### ✅ Bonus 1: User Profile Photo
 
-- `profile_image` (BLOB) column in User table
-- Admin can upload coordinator photos
-- Coordinator can update their own photo
+- Added `profile_image` (BLOB) and `profile_image_type` columns to the `User` table
+- Admin can upload a coordinator's photo when creating their account
+- Coordinator can update their own photo from the Profile page
+- Image stored as byte array in the database
 
-### Bonus 2: Aid Type Deduplication
+### ✅ Bonus 2: Aid Type Deduplication
 
-- `aid_type` column in AidDistribution table
-- Duplicate check is per aid type within 30 days
-- Available types: food, water, medicine, tent, blankets, clothes, cash
+- Added `aid_type` column to `AidDistribution` table
+- The duplicate check is now **per aid type**, not just per family:
+  - A MEDIUM/LOW family **cannot** receive the same aid type twice within 30 days
+  - But can receive **different** aid types in the same period
+  - HIGH vulnerability families are **always** allowed regardless of type or date
+- Available aid types: `food`, `water`, `medicine`, `tent`, `blankets`, `clothes`, `cash`
 
 ---
 
@@ -488,5 +532,8 @@ All rights reserved © 2026.
 </div>
 ```
 
-**الآ
-ن كل شيء سيظهر بشكل صحيح 100%! 🚀**
+---
+
+```
+
+**الآن كل شيء سيعمل بشكل مثالي! 🚀**
