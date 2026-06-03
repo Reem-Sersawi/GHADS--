@@ -1,5 +1,3 @@
-
-```markdown
 <div align="center">
 
 <img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/logo.png" alt="GHADS Logo" width="120"/>
@@ -532,8 +530,5 @@ All rights reserved © 2026.
 </div>
 ```
 
----
-
-```
 
 **الآن كل شيء سيعمل بشكل مثالي! 🚀**
