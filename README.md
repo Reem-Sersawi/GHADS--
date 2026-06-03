@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/logo.png" alt="GHADS Logo" width="120"/>
+<img src="src/screenshots/logo.png" alt="GHADS Logo" width="120"/>
 
 # 🕊️ GHADS
 ### Gaza Humanitarian Aid Distribution System
@@ -128,56 +128,44 @@ Before saving any aid record:
 ## 📸 Screenshots
 
 ### Login Screen
-
-<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Login.png" width="800"/>
+![Login](src/screenshots/Login.png)
 
 ### Admin Dashboard
-
 | Light Theme | Dark Theme |
 |:-----------:|:----------:|
-| <img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Admin-Dashboard.png" width="380"/> | <img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Admin-Dashboard-dark.png" width="380"/> |
+| ![Light](src/screenshots/Admin-Dashboard.png) | ![Dark](src/screenshots/Admin-Dashboard-dark.png) |
 
 ### Organizations Management
-
-<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Admin-Org.png" width="800"/>
+![Organizations](src/screenshots/Admin-Org.png)
 
 ### Users Management
-
-<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Admin-user.png" width="800"/>
+![Users](src/screenshots/Admin-user.png)
 
 ### Families Management
-
-<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Admin-family.png" width="800"/>
+![Families](src/screenshots/Admin-family.png)
 
 ### Aid Records (Admin)
-
-<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/admin-Aid.png" width="800"/>
+![Aid Records](src/screenshots/admin-Aid.png)
 
 ### Coordinator Dashboard
+![Coordinator Dashboard](src/screenshots/Coor-Dashboard.png)
 
-<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Coor-Dashboard.png" width="800"/>
+### Aid Distribution
+![Aid Distribution](src/screenshots/Coor-Aid.png)
 
-### Aid Distribution (Coordinator)
-
-<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Coor-Aid.png" width="800"/>
-
-### Family Registration (Coordinator)
-
-<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Coor-Family.png" width="800"/>
+### Family Registration
+![Family Registration](src/screenshots/Coor-Family.png)
 
 ### Coordinator Profile
-
-<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Coor-profile.png" width="800"/>
+![Profile](src/screenshots/Coor-profile.png)
 
 ### Change Password
-
-<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/Coor-ChangePass.png" width="800"/>
+![Change Password](src/screenshots/Coor-ChangePass.png)
 
 ### About Dialog
+![About](src/screenshots/about.png)
 
-<img src="https://raw.githubusercontent.com/Reem-Sersawi/GHADS/main/screenshots/about.png" width="400"/>
-
----
+```
 
 ## 🏗️ Architecture
 
@@ -528,7 +516,3 @@ All rights reserved © 2026.
 🕊️
 
 </div>
-```
-
-
-**الآن كل شيء سيعمل بشكل مثالي! 🚀**
