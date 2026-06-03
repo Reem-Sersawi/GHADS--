@@ -324,7 +324,6 @@ GHADS/
 │   └── User.java
 │
 ├── 📁 screenshots/
-│   ├── logo.png
 │   ├── Login.png
 │   ├── Admin-Dashboard.png
 │   ├── Admin-Dashboard-dark.png
@@ -351,6 +350,195 @@ GHADS/
     ├── login.fxml
     ├── profile_image.fxml
     └── register_family.fxml
+
+```
+</details>
+
+---
+
+---
+
+## 🏗️ Architecture
+
+GHADS follows a strict **MVC + DAO** architecture:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                        VIEW LAYER                        │
+│              (FXML files built with Scene Builder)       │
+│   Login.fxml  AdminDashboard.fxml  CoordinatorDash.fxml  │
+│                      MenuBar.fxml                        │
+└────────────────────────┬────────────────────────────────┘
+                         │  user events
+                         ▼
+┌─────────────────────────────────────────────────────────┐
+│                    CONTROLLER LAYER                      │
+│         LoginController  AdminDashboardController        │
+│    CoordinatorDashboardController  MenuBarController     │
+└────────────────────────┬────────────────────────────────┘
+                         │  calls
+                         ▼
+┌─────────────────────────────────────────────────────────┐
+│                      DAO LAYER                           │
+│     UserDAO  OrganizationDAO  FamilyDao  AidDistDAO      │
+│              (all database operations here)              │
+└────────────────────────┬────────────────────────────────┘
+                         │  JDBC / PreparedStatement
+                         ▼
+┌─────────────────────────────────────────────────────────┐
+│                     MODEL LAYER                          │
+│         User  Organization  Family  AidDistribution      │
+│                    (Plain Java POJOs)                    │
+└─────────────────────────────────────────────────────────┘
+                         │
+                         ▼
+                   [ MySQL Database ]
+                      ghads_db
+```
+
+---
+
+## 🗄️ Database Design
+
+### Entity Relationship Diagram
+
+```
+Organization ──────< User
+     │                 │
+     │                 │
+     └──────< AidDistribution >──── Family
+```
+
+### Tables
+
+#### `Organization`
+| Column | Type | Description |
+|--------|------|-------------|
+| org_id | INT PK | Auto increment |
+| name | VARCHAR(100) UNIQUE | Organization name |
+| type | VARCHAR | NGO / UN / Local / International |
+| contact_info | VARCHAR | Phone or email |
+
+#### `User`
+| Column | Type | Description |
+|--------|------|-------------|
+| user_id | INT PK | Auto increment |
+| username | VARCHAR UNIQUE | Login username |
+| password | VARCHAR | Plain text (course requirement) |
+| full_name | VARCHAR | Display name |
+| email | VARCHAR UNIQUE | Contact email |
+| role | VARCHAR | ADMIN or COORDINATOR |
+| org_id | INT FK | → Organization |
+| profile_image | BLOB | *Bonus: user photo* |
+| profile_image_type | VARCHAR | *Bonus: image format* |
+
+#### `Family`
+| Column | Type | Description |
+|--------|------|-------------|
+| family_id | INT PK | Auto increment |
+| household_name | VARCHAR | Family name |
+| phone | VARCHAR | Contact number |
+| location | VARCHAR | Area or camp |
+| family_size | INT | Number of members |
+| national_id | VARCHAR UNIQUE | Unique identifier |
+| vulnerability_level | VARCHAR | HIGH / MEDIUM / LOW |
+| registration_date | DATE | When registered |
+| last_aid_date | DATE | Updated after each distribution |
+
+#### `AidDistribution`
+| Column | Type | Description |
+|--------|------|-------------|
+| distribution_id | INT PK | Auto increment |
+| family_id | INT FK | → Family |
+| org_id | INT FK | → Organization |
+| distributed_by | INT FK | → User |
+| distribution_date | DATE | When distributed |
+| aid_type | VARCHAR | *Bonus: food/water/medicine/tent/blankets/clothes/cash* |
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology | Version | Purpose |
+|-----------|---------|---------|
+| Java | 17+ | Core programming language |
+| JavaFX | 25 | Desktop UI framework |
+| Scene Builder | Any | FXML visual design |
+| MySQL | 8.0 | Relational database |
+| JDBC | 4.2 | Database connectivity |
+| CSS | — | Custom UI styling |
+
+---
+
+## 📁 Project Structure
+
+<details>
+<summary><b>📁 Click to expand project structure</b></summary>
+
+```
+GHADS/
+│
+├── 📄 Main.java
+│
+├── 📁 controller/
+│   ├── AdminDashboardController.java
+│   ├── ChangePasswordController.java
+│   ├── CoordinatorDashboardController.java
+│   ├── LoginController.java
+│   ├── ProfileImageController.java
+│   └── RegisterFamilyController.java
+│
+├── 📁 css/
+│   ├── dark-theme.css
+│   └── light-theme.css
+│
+├── 📁 dao/
+│   ├── AidDistributionDAO.java
+│   ├── DatabaseConnection.java
+│   ├── FamilyDAO.java
+│   ├── OrganizationDAO.java
+│   └── UserDAO.java
+│
+├── 📁 database/
+│   └── ghads_db.sql
+│
+├── 📁 images/
+│   └── (uploaded profile photos stored here)
+│
+├── 📁 model/
+│   ├── AidDistribution.java
+│   ├── Family.java
+│   ├── Organization.java
+│   └── User.java
+│
+├── 📁 screenshots/
+│   ├── Login.png
+│   ├── Admin-Dashboard.png
+│   ├── Admin-Dashboard-dark.png
+│   ├── Admin-Org.png
+│   ├── Admin-user.png
+│   ├── Admin-family.png
+│   ├── admin-Aid.png
+│   ├── Coor-Dashboard.png
+│   ├── Coor-Aid.png
+│   ├── Coor-Family.png
+│   ├── Coor-profile.png
+│   ├── Coor-ChangePass.png
+│   └── about.png
+│
+├── 📁 utils/
+│   ├── SessionManager.java
+│   ├── ThemeManager.java
+│   └── ValidationUtils.java
+│
+└── 📁 views/
+    ├── admin_dashboard.fxml
+    ├── change_password.fxml
+    ├── coordinator_dashboard.fxml
+    ├── login.fxml
+    ├── profile_image.fxml
+    └── register_family.fxml
+
 ```
 </details>
 
@@ -401,6 +589,13 @@ private static final String PASSWORD = "YOUR_PASSWORD";
 
 Open the project in **NetBeans** → Right-click → **Run**
 
+Or via terminal:
+```bash
+java --module-path /path/to/javafx-sdk/lib \
+     --add-modules javafx.controls,javafx.fxml \
+     -cp ".:lib/*" Main
+```
+
 ---
 
 ## 🔑 Default Credentials
@@ -419,17 +614,32 @@ Open the project in **NetBeans** → Right-click → **Run**
 
 ### 1. Singleton — `DatabaseConnection`
 
-The Singleton pattern ensures only **one database connection** exists throughout the entire application lifetime.
+The Singleton pattern ensures only **one database connection** exists throughout the entire application lifetime, preventing redundant connections and saving resources.
 
 ```java
+// DatabaseConnection.java
 public class DatabaseConnection {
     private static DatabaseConnection instance;
+    private Connection connection;
+    
+    private DatabaseConnection() {}
     
     public static DatabaseConnection getInstance() {
         if (instance == null) {
-            instance = new DatabaseConnection();
+            synchronized (DatabaseConnection.class) {
+                if (instance == null) {
+                    instance = new DatabaseConnection();
+                }
+            }
         }
         return instance;
+    }
+    
+    public Connection getConnection() {
+        if (connection == null) {
+            // Create new connection
+        }
+        return connection;
     }
 }
 ```
@@ -438,48 +648,217 @@ public class DatabaseConnection {
 - `SessionManager` → Manages the current user session
 - `ThemeManager` → Centralized theme management (Dark/Light)
 
+---
+
 ### 2. MVC (Model-View-Controller)
 
 | Layer | Responsibility | Files |
 |-------|----------------|-------|
-| **Model** | Data representation | `model/` (User, Family, Organization, AidDistribution) |
-| **View** | User interface | `views/` (FXML files) |
-| **Controller** | Application logic | `controller/` (AdminDashboard, Login, CoordinatorDashboard) |
+| **Model** | Data representation, database tables | `model/` (User, Family, Organization, AidDistribution) |
+| **View** | User interface (no Java logic) | `views/` (FXML files) |
+| **Controller** | Application logic, interacts with DAO | `controller/` (AdminDashboard, Login, CoordinatorDashboard) |
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│    Model    │ ←→ │  Controller │ ←→ │    View     │
+│   (POJOs)   │     │   (Logic)   │     │   (FXML)    │
+└─────────────┘     └─────────────┘     └─────────────┘
+       ↑                   ↑                   ↑
+       │                   │                   │
+       ▼                   ▼                   ▼
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   DAO Layer │     │   Events    │     │   CSS Style │
+│   (JDBC)    │     │  (Actions)  │     │  (Themes)   │
+└─────────────┘     └─────────────┘     └─────────────┘
+```
+
+---
 
 ### 3. DAO (Data Access Object)
 
-Each database table has its own DAO using **JDBC**:
+The DAO pattern separates **data access logic** from **business logic**. Each database table has its own DAO containing all CRUD operations using **JDBC**.
+
+```java
+// Controller only talks to DAO
+FamilyDAO familyDAO = new FamilyDAO();
+familyDAO.addFamily(family);
+
+// DAO handles database operations via JDBC
+public boolean addFamily(Family family) {
+    String sql = "INSERT INTO Family (household_name, phone, ...) VALUES (?, ?, ...)";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setString(1, family.getHouseholdName());
+        // ... execute query
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+```
+
+**List of DAOs used:**
 
 | DAO | Operations |
 |-----|------------|
-| `UserDAO` | CRUD + Authentication |
-| `OrganizationDAO` | CRUD |
-| `FamilyDAO` | CRUD + Vulnerability filters |
-| `AidDistributionDAO` | CRUD + Duplicate check |
+| `UserDAO` | authenticate, getUserByUsername, getAllUsers, addUser, updateUser, deleteUser, updatePassword, isUsernameUnique, isEmailUnique |
+| `OrganizationDAO` | getAllOrganizations, getOrganizationById, addOrganization, updateOrganization, deleteOrganization, isNameUnique |
+| `FamilyDAO` | getAllFamilies, getFamilyById, addFamily, updateFamily, deleteFamily, getFamiliesByVulnerability, getUnderservedFamilies, isNationalIdUnique |
+| `AidDistributionDAO` | recordDistribution, checkDuplicateAid, getAllDistributions, getDistributionsByOrg, getDistributionsByFamily |
 
-### 4. Streams & Lambdas
+---
 
-Used throughout for data filtering:
+### 4. JDBC (Java Database Connectivity)
+
+JDBC is used for **direct database communication** without JPA or Hibernate, providing:
+
+- **Full control** over SQL queries
+- **Faster performance** for complex operations
+- **Greater flexibility** in query design
 
 ```java
+// Example from AidDistributionDAO.java - Duplicate check
+String sql = "SELECT ad.distribution_date, o.name as org_name, ad.aid_type " +
+             "FROM AidDistribution ad " +
+             "JOIN Organization o ON ad.org_id = o.org_id " +
+             "WHERE ad.family_id = ? AND ad.aid_type = ? " +
+             "AND ad.distribution_date >= DATE_SUB(?, INTERVAL 30 DAY)";
+
+try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+    stmt.setInt(1, familyId);
+    stmt.setString(2, aidType);
+    stmt.setDate(3, Date.valueOf(distributionDate));
+    ResultSet rs = stmt.executeQuery();
+    // Process results...
+}
+```
+
+---
+
+### 5. Session Manager Pattern
+
+`SessionManager` stores the current user's data throughout the session:
+
+```java
+// SessionManager.java - Singleton
+public class SessionManager {
+    private static SessionManager instance;
+    private User currentUser;
+    
+    public void login(User user) {
+        this.currentUser = user;
+    }
+    
+    public User getCurrentUser() {
+        return currentUser;
+    }
+    
+    public boolean isAdmin() {
+        return currentUser != null && "ADMIN".equals(currentUser.getRole());
+    }
+}
+```
+
+---
+
+### 6. Streams & Lambdas (Java 8+)
+
+Streams and Lambdas are used for easy data processing and filtering:
+
+```java
+// In AdminDashboardController.java
+// Count coordinators using Stream
 long coordinatorCount = users.stream()
     .filter(u -> u.getRole().equalsIgnoreCase("COORDINATOR"))
     .count();
+
+// Count unserved families
+long unservedCount = allFamilies.stream()
+    .filter(f -> f.getLastAidDate() == null)
+    .count();
+
+// Filter distributions by family name
+List<AidDistribution> filtered = allDistributions.stream()
+    .filter(d -> {
+        Family f = familyDAO.getFamilyById(d.getFamilyId());
+        return f != null && f.getHouseholdName().contains(searchText);
+    })
+    .collect(Collectors.toList());
 ```
+
+---
+
+## 📊 Patterns Summary
+
+| Pattern | Location | Purpose |
+|---------|----------|---------|
+| **Singleton** | `DatabaseConnection`, `SessionManager`, `ThemeManager` | Single database connection, single session, single theme |
+| **MVC** | `model/` + `views/` + `controller/` | Separates UI from logic from data |
+| **DAO** | `dao/` | Separates data access logic |
+| **JDBC** | All DAO classes | Direct MySQL communication |
+| **Session Manager** | `SessionManager` | Manages login state |
+| **Streams & Lambdas** | `AdminDashboardController`, `CoordinatorDashboardController` | Collection processing and filtering |
+
+---
+
+## 🔗 How Layers Communicate
+
+```
+User Action (Click on Button)
+        │
+        ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Controller (AdminDashboardController)                       │
+│  - Receives event from View                                   │
+│  - Validates input data                                       │
+│  - Calls appropriate DAO                                      │
+└─────────────────────────────────────────────────────────────┘
+        │
+        ▼
+┌─────────────────────────────────────────────────────────────┐
+│  DAO (FamilyDAO)                                             │
+│  - Creates JDBC connection                                   │
+│  - Executes SQL query (PreparedStatement)                    │
+│  - Returns result to Controller                               │
+└─────────────────────────────────────────────────────────────┘
+        │
+        ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Database (MySQL - ghads_db)                                 │
+│  - Query is executed                                          │
+│  - Returns results or affected rows                           │
+└─────────────────────────────────────────────────────────────┘
+        │
+        ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Controller updates View                                     │
+│  - Updates TableView                                         │
+│  - Shows success/error Alert                                 │
+│  - Updates dashboard statistics                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## ✅ Why These Patterns?
+
+| Pattern | Benefit |
+|---------|---------|
+| **Singleton** | Ensures single database connection, prevents synchronization issues |
+| **MVC** | Easy code maintenance and extension, separates concerns |
+| **DAO** | Allows changing data access methods without affecting business logic |
+| **JDBC** | Full control over SQL queries, better performance |
+| **Streams** | Less code, more readable collection processing |
 
 ---
 
 ## 🌟 Bonus Features
 
 ### ✅ Bonus 1: User Profile Photo
-
 - Added `profile_image` (BLOB) and `profile_image_type` columns to the `User` table
 - Admin can upload a coordinator's photo when creating their account
 - Coordinator can update their own photo from the Profile page
 - Image stored as byte array in the database
 
 ### ✅ Bonus 2: Aid Type Deduplication
-
 - Added `aid_type` column to `AidDistribution` table
 - The duplicate check is now **per aid type**, not just per family:
   - A MEDIUM/LOW family **cannot** receive the same aid type twice within 30 days
@@ -516,3 +895,4 @@ All rights reserved © 2026.
 🕊️
 
 </div>
+```
